@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { http, createConfig, WagmiProvider } from 'wagmi'
+import { sepolia } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
@@ -20,9 +21,10 @@ const rosettanetSepolia = {
 }
 
 export const config = createConfig({
-  chains: [rosettanetSepolia],
+  chains: [rosettanetSepolia, sepolia],
   transports: {
     [rosettanetSepolia]: http(),
+    [sepolia.id]: http(),
   },
 })
 
