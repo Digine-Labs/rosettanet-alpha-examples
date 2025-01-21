@@ -1,22 +1,28 @@
 import React from 'react';
-import { useChainId } from 'wagmi';
+import { useChainId, useAccount } from 'wagmi';
 import { Text } from '@chakra-ui/react';
 
 export default function ActiveChain() {
   const chainId = useChainId();
   const [chain, setChain] = React.useState('');
+  const { address } = useAccount();
 
   React.useEffect(() => {
-    if (chainId === 1) {
-      setChain('Ethereum');
-    } else if (chainId === 11155111) {
-      setChain('Sepolia');
-    } else if (chainId === 1381192787) {
-      setChain('Rosettanet');
+    if (address) {
+      console.log(chainId);
+      if (chainId === 1) {
+        setChain('Ethereum');
+      } else if (chainId === 11155111) {
+        setChain('Sepolia');
+      } else if (chainId === 1381192787) {
+        setChain('Rosettanet');
+      } else {
+        setChain('Unknown');
+      }
     } else {
-      setChain('Unknown');
+      setChain('None');
     }
-  }, [chainId]);
+  }, [chainId, address]);
 
   return (
     <Text>

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, useToast } from '@chakra-ui/react';
 
 export default function AddRosettanetETH() {
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
+
   const addETH = async () => {
     if (window.ethereum) {
+      setLoading(true);
       try {
         const tokenAddress = '0xB5E1278663de249F8580Ec51b6B61739bd906215'; // Replace with your token's contract address
         const tokenSymbol = 'ETH'; // Replace with your token's symbol
@@ -46,8 +49,11 @@ export default function AddRosettanetETH() {
           duration: 9000,
           isClosable: true,
         });
+      } finally {
+        setLoading(false);
       }
     } else {
+      setLoading(false);
       toast({
         title: 'Metamask is not available.',
         status: 'error',
@@ -56,6 +62,14 @@ export default function AddRosettanetETH() {
       });
     }
   };
+
+  if (loading) {
+    return (
+      <Button isLoading minW={'100%'}>
+        Add Rosettanet ETH
+      </Button>
+    );
+  }
 
   return (
     <Button onClick={addETH} minW={'100%'}>
