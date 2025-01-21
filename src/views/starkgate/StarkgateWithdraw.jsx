@@ -114,7 +114,7 @@ export default function StarkgateWithdraw() {
         Metamask.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
-        Metamask needs to be in <Text as="mark">Rosettanet</Text> Chain.
+        Metamask needs to be in <Text as="mark" bgColor={'#BCCCDC'} px={2}>Rosettanet</Text> Chain.
       </Text>
 
       <Input

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button, useToast } from '@chakra-ui/react';
-import { useChainId } from 'wagmi';
+import { useChainId, useClient } from 'wagmi';
 
 export default function AddRosettanetChain() {
   const toast = useToast();
   const chainId = useChainId();
+  const client = useClient();
+
   async function addRosettanet() {
     if (window.ethereum) {
       try {
@@ -13,21 +15,24 @@ export default function AddRosettanetChain() {
           params: [
             {
               chainId: '0x52535453',
-              chainName: 'Rosettanet',
-              rpcUrls: ['http://localhost:3000'],
+              blockExplorerUrls: ['https://starkscan.co'],
+              chainName: 'RosettaNet',
               nativeCurrency: {
+                decimals: 18,
                 name: 'STRK',
                 symbol: 'STRK',
-                decimals: 18,
               },
-              blockExplorerUrls: ['https://starkscan.co/'],
+              rpcUrls: ['http://localhost:3000'],
             },
           ],
         });
 
-        if (wasAdded) {
+        console.log(client);
+
+        if (wasAdded === null) {
           toast({
-            title: 'Rosettanet successfully added to MetaMask.',
+            title:
+              'Rosettanet successfully added to MetaMask. or changed to Rosettanet Chain.',
             status: 'success',
             duration: 9000,
             isClosable: true,
@@ -51,9 +56,8 @@ export default function AddRosettanetChain() {
           }
         }
       } catch (err) {
-        console.log(err);
         toast({
-          title: 'Error.',
+          title: 'Error',
           description: err.message,
           status: 'error',
           duration: 9000,

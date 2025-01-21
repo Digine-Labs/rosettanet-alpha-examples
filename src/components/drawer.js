@@ -18,6 +18,8 @@ import { useHover } from '../utils/useHover';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import AddRosettanetChain from './addRosettanetChain';
 import AddRosettanetETH from './addRosettanetETH';
+import ActiveChain from './activeChain';
+
 export function WalletOptions() {
   const { connectors, connect } = useConnect();
   const { address } = useAccount();
@@ -112,6 +114,8 @@ export function FullOpenDrawer() {
       >
         <NavItem to="/">Home</NavItem>
         <NavItem to="/starkgate">Starkgate</NavItem>
+        <NavItem to="/avnu">Avnu</NavItem>
+        <NavItem to="/ekubo">Ekubo</NavItem>
         <Flex
           px="4"
           py="4"
@@ -125,12 +129,15 @@ export function FullOpenDrawer() {
             <WalletOptions />
           </Stack>
           <Stack minW={'100%'} my={4}>
-            <Text>Add Rosettanet ETH to Metamask</Text>
-            <AddRosettanetETH />
+            <ActiveChain />
           </Stack>
           <Stack minW={'100%'} my={4}>
             <Text>Add Rosettanet Chain to Metamask</Text>
             <AddRosettanetChain />
+          </Stack>
+          <Stack minW={'100%'} my={4}>
+            <Text>Add Rosettanet ETH to Metamask</Text>
+            <AddRosettanetETH />
           </Stack>
           <Stack minW={'100%'} my={4}>
             <Text>Chain Switcher</Text>

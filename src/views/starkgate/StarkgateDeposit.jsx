@@ -112,7 +112,7 @@ export default function StarkgateDeposit() {
         Metamask.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
-        Metamask needs to be in <Text as="mark">Ethereum Sepolia</Text> Chain.
+        Metamask needs to be in <Text as="mark" bgColor={'#BCCCDC'} px={2}>Ethereum Sepolia</Text> Chain.
       </Text>
       <Input
         placeholder="Enter Amount"

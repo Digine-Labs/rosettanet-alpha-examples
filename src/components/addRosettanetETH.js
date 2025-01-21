@@ -25,7 +25,7 @@ export default function AddRosettanetETH() {
         if (wasAdded) {
           toast({
             title: 'Token successfully added to MetaMask.',
-            status: 'error',
+            status: 'success',
             duration: 9000,
             isClosable: true,
           });
