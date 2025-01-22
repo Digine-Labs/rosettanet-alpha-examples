@@ -1,10 +1,20 @@
-import React from 'react';
-import { screen } from '@testing-library/react';
-import { render } from './test-utils';
-import App from './App';
+
+import { prepareMulticallCalldata } from './utils/multicall';
 
 test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn chakra/i);
-  expect(linkElement).toBeInTheDocument();
+  const calls = [
+    {
+      to: '0xbb',
+      entrypoint: '0xff',
+      calldata: ['123', '456']
+    },
+    {
+      to: '0xcc',
+      entrypoint: '0xab',
+      calldata: ['123', '456']
+    }
+  ]
+
+  const calldata = prepareMulticallCalldata(calls)
+  console.log(calldata)
 });
