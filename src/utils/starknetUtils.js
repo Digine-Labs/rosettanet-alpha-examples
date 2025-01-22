@@ -12,14 +12,16 @@ export async function getStarknetAddress(address) {
   if (testAbi === undefined) {
     throw new Error('no abi.');
   }
-  const myTestContract = new Contract(
+  const rosettaContract = new Contract(
     testAbi,
     contractAddress,
     starknetProvider
   );
 
   // Interaction with the contract with call
-  const addr = await myTestContract.get_starknet_address_with_fallback(address);
+  const addr = await rosettaContract.get_starknet_address_with_fallback(
+    address
+  );
 
   return addr;
 }
