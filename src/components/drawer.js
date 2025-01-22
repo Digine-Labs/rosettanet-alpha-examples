@@ -116,6 +116,7 @@ export function FullOpenDrawer() {
         <NavItem to="/starkgate">Starkgate</NavItem>
         <NavItem to="/avnu">Avnu</NavItem>
         <NavItem to="/ekubo">Ekubo</NavItem>
+        <NavItem to="/nostra">Nostra</NavItem>
         <Flex
           px="4"
           py="4"

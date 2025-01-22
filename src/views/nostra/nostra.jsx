@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Text } from '@chakra-ui/react';
 
-export default function Ekubo() {
+export default function Nostra() {
   return (
     <Container maxW="3xl" overflow={'hidden'}>
-      <Text>Ekubo</Text>
+      <Text>Nostra</Text>
     </Container>
   );
 }

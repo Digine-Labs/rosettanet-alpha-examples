@@ -6,6 +6,7 @@ import Starkgate from './views/starkgate/Starkgate';
 import Home from './views/Home/Home';
 import Avnu from './views/avnu/avnu';
 import Ekubo from './views/ekubo/ekubo';
+import Nostra from './views/nostra/nostra';
 
 // Define the routes
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'ekubo',
         element: <Ekubo />,
+      },
+      {
+        path: 'nostra',
+        element: <Nostra />,
       },
     ],
   },
