@@ -3,9 +3,10 @@ import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { http, createConfig, WagmiProvider } from 'wagmi';
+import { http, createConfig, WagmiProvider, injected } from 'wagmi';
 import { sepolia } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { walletConnect, metaMask } from 'wagmi/connectors'
 
 const rosettanetSepolia = {
   id: 1381192787,
@@ -27,6 +28,13 @@ export const config = createConfig({
     [rosettanetSepolia]: http('http://localhost:3000'),
     [sepolia.id]: http('https://eth-sepolia.public.blastapi.io'),
   },
+  connectors: [
+    injected(),
+    walletConnect({
+      projectId: '7f8e983cf6f864c457531f2933f336dd',
+      isNewChainsStale: true
+    })
+  ],
 });
 
 const container = document.getElementById('root');

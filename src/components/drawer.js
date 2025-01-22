@@ -25,7 +25,7 @@ export function WalletOptions() {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const [buttonHover, buttonHoverProps] = useHover();
-
+  
   if (address) {
     return (
       <Button onClick={() => disconnect()} {...buttonHoverProps} minW={'100%'}>
