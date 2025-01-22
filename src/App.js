@@ -7,6 +7,7 @@ import Home from './views/Home/Home';
 import Avnu from './views/avnu/avnu';
 import Ekubo from './views/ekubo/ekubo';
 import Nostra from './views/nostra/nostra';
+import Unruggable from './views/unruggable/Unruggable';
 
 // Define the routes
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         path: 'nostra',
         element: <Nostra />,
       },
+      {
+        path: 'unruggable',
+        element: <Unruggable />
+      }
     ],
   },
 ]);
