@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@avnu/avnu-sdk": "^3.0.0",
     "@chakra-ui/cra-template": "2.0.7",
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "2",

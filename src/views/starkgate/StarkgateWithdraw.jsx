@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useAccount, useWriteContract } from 'wagmi';
+import { useAccount } from 'wagmi';
+import { sendTransaction } from '@wagmi/core';
 import {
   Box,
   Button,
@@ -11,42 +12,37 @@ import {
   Link,
   useToast,
 } from '@chakra-ui/react';
-import { getStarknetAddress } from '../../utils/starknetUtils';
 import { parseEther } from 'ethers';
+import { prepareMulticallCalldata } from '../../utils/multicall';
+import { config } from '../..';
 
-const starkgateSepoliaAbi = [
+const withdrawCalldata = [
+  //send ethereum ile iletişim
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'l1_token',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'l1_recipient',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
+    to: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    entrypoint:
+      '0x0083afd3f4caedc6eebf44246fe54e38c95e3179a5ec9ea81740eca5b482d12e',
+    calldata: [
+      '7D33254052409C04510C3652BC5BE5656F1EFF1B131C7C031592E3FA73F1F70',
+      '221B262DD8000',
+      '0',
     ],
-    name: 'initiate_token_withdraw',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+  },
+  {
+    to: '0x04c5772d1914fe6ce891b64eb35bf3522aeae1315647314aac58b01137607f3f',
+    entrypoint:
+      '0x00e5b455a836c7a254df57ed39d023d46b641b331162c6c0b369647056655409',
+    calldata: [
+      '455448',
+      'E4306A06B19FDC04FDF98CF3C00472F29254C0E1',
+      '38D7EA4C68000',
+      '0',
+    ],
   },
 ];
 
-const contractAddress = '0xbb9b894c4d7bb95fb88b979974a739577bc360a9';
-
 export default function StarkgateWithdraw() {
   const { address, chainId } = useAccount();
-  const { writeContractAsync } = useWriteContract({
-    abi: starkgateSepoliaAbi,
-  });
   const [amount, setAmount] = useState('');
   const [transactions, setTransactions] = useState([]);
   const toast = useToast();
@@ -82,22 +78,17 @@ export default function StarkgateWithdraw() {
       return;
     }
 
-    const snAddress = await getStarknetAddress(address);
-
     try {
-      const response = await writeContractAsync({
-        abi: starkgateSepoliaAbi,
-        address: contractAddress,
-        functionName: 'initiate_token_withdraw',
-        args: [
-          '0x0000000000000000000000000000000000455448', // l1 token address
-          snAddress, // amount
-          parseEther(amount), // l1 recipient
-        ],
-        value: parseEther(amount) + parseEther('0.01'), // ETH value to send (in wei)
+      const response = await sendTransaction(config, {
+        chainId: 1381192787,
+        account: address,
+        to: address,
+        value: parseEther('0'),
+        data: prepareMulticallCalldata(withdrawCalldata),
+        gasLimit: 90000,
       });
-      console.log('Transaction sent:', response);
-      setTransactions(prevData => [...prevData, response]);
+      console.log('Transaction sent:', response.transaction_hash);
+      setTransactions(prevData => [...prevData, response.transaction_hash]);
     } catch (error) {
       console.error('Error during contract call:', error);
     }
@@ -114,7 +105,11 @@ export default function StarkgateWithdraw() {
         Metamask.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
-        Metamask needs to be in <Text as="mark" bgColor={'#BCCCDC'} px={2}>Rosettanet</Text> Chain.
+        Metamask needs to be in{' '}
+        <Text as="mark" bgColor={'#BCCCDC'} px={2}>
+          Rosettanet
+        </Text>
+        Chain.
       </Text>
 
       <Input
@@ -124,7 +119,7 @@ export default function StarkgateWithdraw() {
         value={amount}
         onChange={e => setAmount(e.target.value)}
       />
-      <Button onClick={handleWithdraw}>Deposit ETH</Button>
+      <Button onClick={handleWithdraw}>Withdraw ETH</Button>
       <Text mt={2} fontSize={'lg'} fontWeight={'bold'}>
         Transactions
       </Text>
@@ -138,10 +133,10 @@ export default function StarkgateWithdraw() {
               <Text fontSize={'sm'}>Transaction Hash: {tx}</Text>
               <Link
                 fontSize={'sm'}
-                href={`https://sepolia.etherscan.io/tx/${tx}`}
+                href={`https://sepolia.voyager.online/tx/${tx}`}
                 isExternal
               >
-                View on Etherscan
+                View on Voyager
               </Link>
             </Stack>
           </CardBody>

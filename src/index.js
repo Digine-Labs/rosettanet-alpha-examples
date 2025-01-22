@@ -19,10 +19,12 @@ const rosettanetSepolia = {
   },
 };
 
+// https://wagmi.sh/react/api/connectors/walletConnect buna bak
+
 export const config = createConfig({
   chains: [rosettanetSepolia, sepolia],
   transports: {
-    [rosettanetSepolia]: http(),
+    [rosettanetSepolia]: http('http://localhost:3000'),
     [sepolia.id]: http('https://eth-sepolia.public.blastapi.io'),
   },
 });
