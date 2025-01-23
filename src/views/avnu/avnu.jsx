@@ -133,7 +133,19 @@ export default function Avnu() {
         </Text>
         Chain.
       </Text>
-      <Button onClick={handleClick}>Exchange</Button>
+      <Text
+        as="cite"
+        fontSize={'sm'}
+        display={'block'}
+        bgColor={'red.200'}
+        mt={2}
+      >
+        This part not works as intented because Avnu's step limit for a single
+        transaction is 1 million. We are exceeding this limit with our calldata.
+      </Text>
+      <Button mt={2} onClick={handleClick}>
+        Exchange
+      </Button>
       <Text mt={2} fontSize={'lg'} fontWeight={'bold'}>
         Transactions
       </Text>

@@ -25,7 +25,7 @@ export function WalletOptions() {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const [buttonHover, buttonHoverProps] = useHover();
-  
+
   if (address) {
     return (
       <Button onClick={() => disconnect()} {...buttonHoverProps} minW={'100%'}>
@@ -36,7 +36,9 @@ export function WalletOptions() {
     return connectors.map(connector => (
       <Button
         key={connector.uid}
-        onClick={() => connect({ connector })}
+        onClick={() => {
+          connect({ connector });
+        }}
         minW={'100%'}
       >
         {connector.name}
