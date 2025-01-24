@@ -14,9 +14,7 @@ function addHexPadding(value, targetLength, prefix) {
 
 export function prepareMulticallCalldata(calls) {
   const calldata = ['0x76971d7f'];
-  console.log(calls.length.toString(16));
   const length = addHexPadding(calls.length.toString(16), 64, false);
-  console.log(length);
 
   calldata.push(length);
 
@@ -29,14 +27,7 @@ export function prepareMulticallCalldata(calls) {
         ''
       )
     );
-    console.log(
-      addHexPadding(call.calldata.length.toString(16), 64, false).replace(
-        '0x',
-        ''
-      )
-    );
 
-    console.log(call.calldata.length);
     calldata.push(
       ...call.calldata.map(c => addHexPadding(c, 64, false).replace('0x', ''))
     );

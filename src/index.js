@@ -3,67 +3,24 @@ import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { http, createConfig, WagmiProvider, injected } from 'wagmi';
-import { sepolia } from 'wagmi/chains';
-import {
-  sepolia as WalletConnectSepolia,
-  mainnet,
-} from '@reown/appkit/networks';
+import { http, createConfig, WagmiProvider } from 'wagmi';
+import { sepolia, mainnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { walletConnect, metaMask } from 'wagmi/connectors';
-import { defineChain } from '@reown/appkit/networks';
-import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
-import { createAppKit } from '@reown/appkit/react';
+import { walletConnect } from 'wagmi/connectors';
+// import { AppKitProvider } from './utils/appkitProvider';
+// import RainbowkitProvider from './utils/rainbowkitProvider';
 
 const rosettanetSepolia = {
   id: 1381192787,
   name: 'Rosettanet',
   nativeCurrency: { name: 'Starknet Token', symbol: 'STRK', decimals: 18 },
   rpcUrls: {
-    default: { http: ['http://localhost:3000'] },
+    default: { http: ['https://alpha-deployment.rosettanet.io/'] },
   },
   blockExplorers: {
     default: { name: 'Voyager', url: 'https://sepolia.voyager.io' },
   },
 };
-
-// const rosettanetSepoliaWalletConnect = defineChain({
-//   id: 1381192787,
-//   name: 'Rosettanet',
-//   chainNamespace: 'rosettanet',
-//   caipNetworkId: '1381192787',
-//   nativeCurrency: { name: 'Starknet Token', symbol: 'STRK', decimals: 18 },
-//   rpcUrls: {
-//     default: { http: 'http://localhost:3000' },
-//   },
-//   blockExplorers: {
-//     default: { name: 'Voyager', url: 'https://sepolia.voyager.io' },
-//   },
-// });
-
-// const walletConnectNetworks = [
-//   WalletConnectSepolia,
-//   rosettanetSepoliaWalletConnect,
-// ];
-
-// const walletConnectMetadata = {
-//   name: 'Rosy',
-//   description: 'AppKit Example',
-//   url: 'https://reown.com/appkit', // origin must match your domain & subdomain
-//   icons: ['https://assets.reown.com/reown-profile-pic.png'],
-// };
-
-// const wagmiAdapter = new WagmiAdapter({
-//   networks: walletConnectNetworks,
-//   projectId: '7e0b8c7d55dd9cad555623bf3c34da1c',
-// });
-
-// createAppKit({
-//   adapters: [wagmiAdapter],
-//   metadata: walletConnectMetadata,
-//   networks: walletConnectNetworks,
-//   projectId: '7e0b8c7d55dd9cad555623bf3c34da1c',
-// });
 
 export const config = createConfig({
   chains: [rosettanetSepolia, sepolia],
@@ -75,15 +32,14 @@ export const config = createConfig({
       metadata: {
         name: 'Rosy',
         description: 'AppKit Example',
-        url: 'https://reown.com/appkit', // origin must match your domain & subdomain
         icons: ['https://assets.reown.com/reown-profile-pic.png'],
       },
     }),
   ],
   transports: {
-    [rosettanetSepolia]: http('http://localhost:3000'),
+    [rosettanetSepolia.id]: http(),
     [mainnet.id]: http(),
-    [sepolia.id]: http('https://eth-sepolia.public.blastapi.io'),
+    [sepolia.id]: http(),
   },
 });
 
@@ -102,6 +58,8 @@ root.render(
     </WagmiProvider>
   </StrictMode>
 );
+
+// paddle skill select negative sign trial asthma purpose educate sight task finger
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

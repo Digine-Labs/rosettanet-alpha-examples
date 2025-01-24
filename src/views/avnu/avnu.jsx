@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  Box,
   Button,
   Text,
-  Input,
   Card,
   CardBody,
   Stack,

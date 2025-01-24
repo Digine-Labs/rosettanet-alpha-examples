@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Button, useToast } from '@chakra-ui/react';
-import { useChainId } from 'wagmi';
+import { useChainId, useAccount } from 'wagmi';
 
 export default function AddRosettanetChain() {
   const toast = useToast();
   const chainId = useChainId();
   const [loading, setLoading] = useState(false);
+  const { address } = useAccount();
 
   async function addRosettanet() {
-    if (window.ethereum) {
+    if (window.ethereum && address) {
       setLoading(true);
       try {
         const wasAdded = await window.ethereum.request({
@@ -23,7 +24,7 @@ export default function AddRosettanetChain() {
                 name: 'STRK',
                 symbol: 'STRK',
               },
-              rpcUrls: ['http://localhost:3000'],
+              rpcUrls: ['https://alpha-deployment.rosettanet.io/'],
             },
           ],
         });
@@ -68,7 +69,7 @@ export default function AddRosettanetChain() {
     } else {
       setLoading(false);
       toast({
-        title: 'Metamask is not available.',
+        title: 'Wallet is not available. / Please Connect Your Wallet.',
         status: 'error',
         duration: 9000,
         isClosable: true,

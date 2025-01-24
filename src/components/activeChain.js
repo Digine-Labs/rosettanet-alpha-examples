@@ -9,7 +9,6 @@ export default function ActiveChain() {
 
   React.useEffect(() => {
     if (address) {
-      console.log(chainId);
       if (chainId === 1) {
         setChain('Ethereum');
       } else if (chainId === 11155111) {
