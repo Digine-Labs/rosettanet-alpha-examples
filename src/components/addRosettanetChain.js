@@ -32,13 +32,12 @@ export default function AddRosettanetChain() {
         if (wasAdded === null) {
           toast({
             title:
-              'Rosettanet successfully added to MetaMask. or changed to Rosettanet Chain.',
+              'Rosettanet successfully added to Wallet. or changed to Rosettanet Chain.',
             status: 'success',
             duration: 9000,
             isClosable: true,
           });
         } else {
-          // burda bi bokluk var, rosettanet varsa metamaskta chain değişiyor oraya geçiyor alttaki if düzgün çalışmıyor
           if (chainId === 1381192787) {
             toast({
               title: 'Rosettanet already added, changed to Rosettanet Chain.',

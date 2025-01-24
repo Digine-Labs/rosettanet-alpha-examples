@@ -122,10 +122,10 @@ export default function Avnu() {
       </Text>
       <Text as="cite" fontSize={'sm'}>
         This part using Avnu to exchange ETH to STRK. After successfully
-        exchange we can see our increased STRK amount in Metamask.
+        exchange we can see our increased STRK amount in Wallet.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
-        Metamask needs to be in{' '}
+        Wallet needs to be in{' '}
         <Text as="mark" bgColor={'#BCCCDC'} px={2}>
           Rosettanet
         </Text>
@@ -139,7 +139,8 @@ export default function Avnu() {
         mt={2}
       >
         This part not works as intented because Avnu's step limit for a single
-        transaction is 1 million. We are exceeding this limit with our calldata.
+        transaction is 1 million. We are exceeding this limit with our calldata
+        for now.
       </Text>
       <Button mt={2} onClick={handleClick}>
         Exchange

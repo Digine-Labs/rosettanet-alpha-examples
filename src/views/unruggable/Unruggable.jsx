@@ -135,7 +135,7 @@ export default function Unruggable() {
         explorer.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
-        Metamask needs to be in{' '}
+        Wallet needs to be in{' '}
         <Text as="mark" bgColor={'#BCCCDC'} px={2}>
           Rosettanet
         </Text>{' '}
