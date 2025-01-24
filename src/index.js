@@ -3,38 +3,44 @@ import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { http, createConfig, WagmiProvider, injected } from 'wagmi';
-import { sepolia } from 'wagmi/chains';
+import { http, createConfig, WagmiProvider } from 'wagmi';
+import { sepolia, mainnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { walletConnect, metaMask } from 'wagmi/connectors'
+import { walletConnect } from 'wagmi/connectors';
+// import { AppKitProvider } from './utils/appkitProvider';
+// import RainbowkitProvider from './utils/rainbowkitProvider';
 
 const rosettanetSepolia = {
   id: 1381192787,
   name: 'Rosettanet',
   nativeCurrency: { name: 'Starknet Token', symbol: 'STRK', decimals: 18 },
   rpcUrls: {
-    default: { http: ['http://localhost:3000'] },
+    default: { http: ['https://alpha-deployment.rosettanet.io/'] },
   },
   blockExplorers: {
     default: { name: 'Voyager', url: 'https://sepolia.voyager.io' },
   },
 };
 
-// https://wagmi.sh/react/api/connectors/walletConnect buna bak
-
 export const config = createConfig({
   chains: [rosettanetSepolia, sepolia],
-  transports: {
-    [rosettanetSepolia]: http('http://localhost:3000'),
-    [sepolia.id]: http('https://eth-sepolia.public.blastapi.io'),
-  },
   connectors: [
-    injected(),
     walletConnect({
-      projectId: '7f8e983cf6f864c457531f2933f336dd',
-      isNewChainsStale: true
-    })
+      projectId: '7e0b8c7d55dd9cad555623bf3c34da1c',
+      isNewChainsStale: true,
+      showQrModal: true,
+      metadata: {
+        name: 'Rosy',
+        description: 'AppKit Example',
+        icons: ['https://assets.reown.com/reown-profile-pic.png'],
+      },
+    }),
   ],
+  transports: {
+    [rosettanetSepolia.id]: http(),
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+  },
 });
 
 const container = document.getElementById('root');
@@ -52,6 +58,10 @@ root.render(
     </WagmiProvider>
   </StrictMode>
 );
+
+// paddle skill select negative sign trial asthma purpose educate sight task finger
+// ----
+// limb goat embody joke area rebel piano hurdle elbow know welcome lift
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

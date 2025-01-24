@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Button, useToast } from '@chakra-ui/react';
-import { useChainId } from 'wagmi';
+import { useChainId, useAccount } from 'wagmi';
 
 export default function AddRosettanetChain() {
   const toast = useToast();
   const chainId = useChainId();
   const [loading, setLoading] = useState(false);
+  const { address } = useAccount();
 
   async function addRosettanet() {
-    if (window.ethereum) {
+    if (window.ethereum && address) {
       setLoading(true);
       try {
         const wasAdded = await window.ethereum.request({
@@ -23,7 +24,7 @@ export default function AddRosettanetChain() {
                 name: 'STRK',
                 symbol: 'STRK',
               },
-              rpcUrls: ['http://localhost:3000'],
+              rpcUrls: ['https://alpha-deployment.rosettanet.io/'],
             },
           ],
         });
@@ -31,13 +32,12 @@ export default function AddRosettanetChain() {
         if (wasAdded === null) {
           toast({
             title:
-              'Rosettanet successfully added to MetaMask. or changed to Rosettanet Chain.',
+              'Rosettanet successfully added to Wallet. or changed to Rosettanet Chain.',
             status: 'success',
             duration: 9000,
             isClosable: true,
           });
         } else {
-          // burda bi bokluk var, rosettanet varsa metamaskta chain değişiyor oraya geçiyor alttaki if düzgün çalışmıyor
           if (chainId === 1381192787) {
             toast({
               title: 'Rosettanet already added, changed to Rosettanet Chain.',
@@ -68,7 +68,7 @@ export default function AddRosettanetChain() {
     } else {
       setLoading(false);
       toast({
-        title: 'Metamask is not available.',
+        title: 'Wallet is not available. / Please Connect Your Wallet.',
         status: 'error',
         duration: 9000,
         isClosable: true,

@@ -35,14 +35,14 @@ const router = createBrowserRouter([
         path: 'ekubo',
         element: <Ekubo />,
       },
-      {
-        path: 'nostra',
-        element: <Nostra />,
-      },
+      // {
+      //   path: 'nostra',
+      //   element: <Nostra />,
+      // },
       {
         path: 'unruggable',
-        element: <Unruggable />
-      }
+        element: <Unruggable />,
+      },
     ],
   },
 ]);

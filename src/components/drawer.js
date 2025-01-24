@@ -25,7 +25,7 @@ export function WalletOptions() {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const [buttonHover, buttonHoverProps] = useHover();
-  
+
   if (address) {
     return (
       <Button onClick={() => disconnect()} {...buttonHoverProps} minW={'100%'}>
@@ -36,7 +36,9 @@ export function WalletOptions() {
     return connectors.map(connector => (
       <Button
         key={connector.uid}
-        onClick={() => connect({ connector })}
+        onClick={() => {
+          connect({ connector });
+        }}
         minW={'100%'}
       >
         {connector.name}
@@ -116,7 +118,7 @@ export function FullOpenDrawer() {
         <NavItem to="/starkgate">Starkgate</NavItem>
         <NavItem to="/avnu">Avnu</NavItem>
         <NavItem to="/ekubo">Ekubo</NavItem>
-        <NavItem to="/nostra">Nostra</NavItem>
+        {/* <NavItem to="/nostra">Nostra</NavItem> */}
         <NavItem to="/unruggable">Unruggable</NavItem>
         <Flex
           px="4"
@@ -134,11 +136,11 @@ export function FullOpenDrawer() {
             <ActiveChain />
           </Stack>
           <Stack minW={'100%'} my={4}>
-            <Text>Add Rosettanet Chain to Metamask</Text>
+            <Text>Add Rosettanet Chain to Wallet</Text>
             <AddRosettanetChain />
           </Stack>
           <Stack minW={'100%'} my={4}>
-            <Text>Add Rosettanet ETH to Metamask</Text>
+            <Text>Add Rosettanet ETH to Wallet</Text>
             <AddRosettanetETH />
           </Stack>
           <Stack minW={'100%'} my={4}>

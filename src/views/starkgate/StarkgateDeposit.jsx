@@ -109,10 +109,14 @@ export default function StarkgateDeposit() {
       <Text as="cite" fontSize={'sm'}>
         This part using Starkgate to send ETH from Ethereum to Starknet. After
         successfully sent we can see our ETH amount in Rosettanet chain in
-        Metamask.
+        Wallet.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
-        Metamask needs to be in <Text as="mark" bgColor={'#BCCCDC'} px={2}>Ethereum Sepolia</Text> Chain.
+        Wallet needs to be in{' '}
+        <Text as="mark" bgColor={'#BCCCDC'} px={2}>
+          Ethereum Sepolia
+        </Text>{' '}
+        Chain.
       </Text>
       <Input
         placeholder="Enter Amount"

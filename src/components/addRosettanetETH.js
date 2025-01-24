@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Button, useToast } from '@chakra-ui/react';
+import { useAccount } from 'wagmi';
 
 export default function AddRosettanetETH() {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
+  const { address } = useAccount();
 
   const addETH = async () => {
-    if (window.ethereum) {
+    if (window.ethereum && address) {
       setLoading(true);
       try {
         const tokenAddress = '0xB5E1278663de249F8580Ec51b6B61739bd906215'; // Replace with your token's contract address
@@ -27,7 +29,7 @@ export default function AddRosettanetETH() {
 
         if (wasAdded) {
           toast({
-            title: 'Token successfully added to MetaMask.',
+            title: 'Token successfully added to Wallet.',
             status: 'success',
             duration: 9000,
             isClosable: true,
@@ -55,7 +57,7 @@ export default function AddRosettanetETH() {
     } else {
       setLoading(false);
       toast({
-        title: 'Metamask is not available.',
+        title: 'Wallet is not available. / Please Connect Your Wallet.',
         status: 'error',
         duration: 9000,
         isClosable: true,

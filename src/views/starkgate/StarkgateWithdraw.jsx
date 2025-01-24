@@ -15,6 +15,7 @@ import {
 import { parseEther } from 'ethers';
 import { prepareMulticallCalldata } from '../../utils/multicall';
 import { config } from '../..';
+import { parseGwei } from 'viem';
 
 const withdrawCalldata = [
   //send ethereum ile iletişim
@@ -85,12 +86,22 @@ export default function StarkgateWithdraw() {
         to: address,
         value: parseEther('0'),
         data: prepareMulticallCalldata(withdrawCalldata),
-        gasLimit: 90000,
+        gasLimit: 50000,
+        maxFeePerGas: parseGwei('100'),
+        maxPriorityFeePerGas: parseGwei('1'),
+        type: 'eip1559',
       });
       console.log('Transaction sent:', response.transaction_hash);
       setTransactions(prevData => [...prevData, response.transaction_hash]);
     } catch (error) {
       console.error('Error during contract call:', error);
+      toast({
+        title: 'Error',
+        description: error.message,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
@@ -102,10 +113,10 @@ export default function StarkgateWithdraw() {
       <Text as="cite" fontSize={'sm'}>
         This part using Starkgate to send ETH from Starknet to Ethereum. After
         successfully sent we can see our ETH amount in Ethereum Sepolia chain in
-        Metamask.
+        Wallet.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
-        Metamask needs to be in{' '}
+        Wallet needs to be in{' '}
         <Text as="mark" bgColor={'#BCCCDC'} px={2}>
           Rosettanet
         </Text>
