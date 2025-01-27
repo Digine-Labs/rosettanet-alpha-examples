@@ -44,7 +44,7 @@ export default function Unruggable() {
 
     if (chainId !== 1381192787) {
       toast({
-        title: 'Please connect with Rosettanet Chain.',
+        title: 'Please connect with RosettaNet Chain.',
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -87,7 +87,6 @@ export default function Unruggable() {
     const snAddress = await getStarknetAddress(address);
 
     const createMemecoinCalldata = [
-      //send ethereum ile iletişim
       {
         to: '0x00494a72a742b7880725a965ee487d937fa6d08a94ba4eb9e29dd0663bc653a2',
         entrypoint:
@@ -114,10 +113,10 @@ export default function Unruggable() {
       console.log('Transaction sent:', response.transaction_hash);
       setTransactions(prevData => [...prevData, response.transaction_hash]);
     } catch (e) {
-      console.error('Error during contract call:', e);
+      console.error(e);
       toast({
         title: 'Error',
-        description: e.message,
+        description: JSON.stringify(e.cause.shortMessage),
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -137,7 +136,7 @@ export default function Unruggable() {
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
         Wallet needs to be in{' '}
         <Text as="mark" bgColor={'#BCCCDC'} px={2}>
-          Rosettanet
+          RosettaNet
         </Text>{' '}
         Chain.
       </Text>

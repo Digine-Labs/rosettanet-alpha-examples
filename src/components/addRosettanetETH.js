@@ -68,14 +68,14 @@ export default function AddRosettanetETH() {
   if (loading) {
     return (
       <Button isLoading minW={'100%'}>
-        Add Rosettanet ETH
+        Add RosettaNet ETH
       </Button>
     );
   }
 
   return (
     <Button onClick={addETH} minW={'100%'}>
-      Add Rosettanet ETH
+      Add RosettaNet ETH
     </Button>
   );
 }

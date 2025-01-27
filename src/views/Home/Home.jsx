@@ -16,6 +16,15 @@ export default function Home() {
         This is a webpage for BETA testing RosettaNet.
       </Heading>
       <Box py={6}>
+        <Link
+          href="https://github.com/Digine-Labs/rosettanet"
+          isExternal
+          size="lg"
+        >
+          <Heading as="h2" size="lg" my={4}>
+            Github Repository
+          </Heading>
+        </Link>
         {/* Overview Section */}
         <Heading as="h2" size="lg" mb={4}>
           Overview
@@ -86,7 +95,7 @@ export default function Home() {
         </Heading>
 
         <Text fontWeight="bold" mb={2}>
-          Rosettanet:
+          RosettaNet:
         </Text>
         <Text mb={4}>
           Middleware software, core part of Rosetta. It acts like a gateway
@@ -126,15 +135,6 @@ export default function Home() {
           *Additional extensions will be developed to provide integrability for
           existing Starknet protocols.*
         </Text>
-        <Link
-          href="https://github.com/Digine-Labs/rosettanet"
-          isExternal
-          size="lg"
-        >
-          <Heading as="h2" size="lg" my={4}>
-            Github Repository
-          </Heading>
-        </Link>
       </Box>
     </Container>
   );

@@ -6,9 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import { http, createConfig, WagmiProvider } from 'wagmi';
 import { sepolia, mainnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AppKitProvider } from './utils/appkitProvider';
 import { walletConnect } from 'wagmi/connectors';
-// import { AppKitProvider } from './utils/appkitProvider';
-// import RainbowkitProvider from './utils/rainbowkitProvider';
 
 const rosettanetSepolia = {
   id: 1381192787,
@@ -58,6 +57,15 @@ root.render(
     </WagmiProvider>
   </StrictMode>
 );
+
+// root.render(
+//   <StrictMode>
+//     <AppKitProvider>
+//       <ColorModeScript />
+//       <App />
+//     </AppKitProvider>
+//   </StrictMode>
+// );
 
 // paddle skill select negative sign trial asthma purpose educate sight task finger
 // ----
