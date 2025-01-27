@@ -140,10 +140,9 @@ export default function Avnu() {
         bgColor={'red.200'}
         mt={2}
       >
-        This part does not work as intended because Avnu's step limit for a
-        single transaction is 1 million. Currently, calldata exceeds this limit,
-        so we cannot execute this transaction until gas optimization is
-        performed. We need to optimize calldata to make this transaction work.
+        This part does not work as intended because calldata too long, so we
+        cannot execute this transaction until gas optimization is performed. We
+        need to optimize calldata to make this transaction work.
       </Text>
       {loading ? (
         <Button mt={2} isLoading loadingText="Exchange">
