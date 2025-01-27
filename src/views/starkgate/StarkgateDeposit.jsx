@@ -96,8 +96,15 @@ export default function StarkgateDeposit() {
       });
       console.log('Transaction sent:', response);
       setTransactions(prevData => [...prevData, response]);
-    } catch (error) {
-      console.error('Error during contract call:', error);
+    } catch (e) {
+      console.error(e);
+      toast({
+        title: 'Error',
+        description: JSON.stringify(e.cause.shortMessage),
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 

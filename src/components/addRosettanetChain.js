@@ -32,7 +32,7 @@ export default function AddRosettanetChain() {
         if (wasAdded === null) {
           toast({
             title:
-              'Rosettanet successfully added to Wallet. or changed to Rosettanet Chain.',
+              'RosettaNet successfully added to Wallet. or changed to RosettaNet Chain.',
             status: 'success',
             duration: 9000,
             isClosable: true,
@@ -40,14 +40,14 @@ export default function AddRosettanetChain() {
         } else {
           if (chainId === 1381192787) {
             toast({
-              title: 'Rosettanet already added, changed to Rosettanet Chain.',
+              title: 'RosettaNet already added, changed to RosettaNet Chain.',
               status: 'success',
               duration: 9000,
               isClosable: true,
             });
           } else {
             toast({
-              title: 'Rosettanet addition declined.',
+              title: 'RosettaNet addition declined.',
               status: 'error',
               duration: 9000,
               isClosable: true,
@@ -79,14 +79,14 @@ export default function AddRosettanetChain() {
   if (loading) {
     return (
       <Button isLoading minW={'100%'}>
-        Adding Rosettanet Chain
+        Adding RosettaNet Chain
       </Button>
     );
   }
 
   return (
     <Button onClick={addRosettanet} minW={'100%'}>
-      Add Rosettanet Chain
+      Add RosettaNet Chain
     </Button>
   );
 }

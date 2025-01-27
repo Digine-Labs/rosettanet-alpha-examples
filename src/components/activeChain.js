@@ -1,11 +1,12 @@
 import React from 'react';
-import { useChainId, useAccount } from 'wagmi';
+import { useChainId } from 'wagmi';
 import { Text } from '@chakra-ui/react';
+import { useAppKitAccount } from '@reown/appkit/react';
 
 export default function ActiveChain() {
   const chainId = useChainId();
   const [chain, setChain] = React.useState('');
-  const { address } = useAccount();
+  const { address } = useAppKitAccount();
 
   React.useEffect(() => {
     if (address) {
@@ -14,7 +15,7 @@ export default function ActiveChain() {
       } else if (chainId === 11155111) {
         setChain('Sepolia');
       } else if (chainId === 1381192787) {
-        setChain('Rosettanet');
+        setChain('RosettaNet');
       } else {
         setChain('Unknown');
       }
@@ -26,7 +27,7 @@ export default function ActiveChain() {
   return (
     <Text>
       Active Chain:{' '}
-      <Text as={'mark'} bgColor={'#BCCCDC'} px={2}>
+      <Text as={'mark'} bgColor={'#BCCCDC'}>
         {chain}
       </Text>
     </Text>

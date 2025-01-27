@@ -19,6 +19,11 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import AddRosettanetChain from './addRosettanetChain';
 import AddRosettanetETH from './addRosettanetETH';
 import ActiveChain from './activeChain';
+import {
+  useAppKit,
+  useAppKitAccount,
+  useAppKitNetwork,
+} from '@reown/appkit/react';
 
 export function WalletOptions() {
   const { connectors, connect } = useConnect();
@@ -51,6 +56,9 @@ export function FullOpenDrawer() {
   const sidebar = useDisclosure();
   const color = useColorModeValue('gray.600', 'gray.300');
   const { chains, switchChain } = useSwitchChain();
+  const { open } = useAppKit();
+  const { address } = useAppKitAccount();
+
   const NavItem = ({ icon, to, children, ...rest }) => (
     <NavLink to={to} style={{ textDecoration: 'none', width: '100%' }}>
       {({ isActive }) => (
@@ -91,7 +99,6 @@ export function FullOpenDrawer() {
       left="0"
       zIndex="sticky"
       h="full"
-      pb="10"
       overflowX="hidden"
       overflowY="auto"
       bg="white"
@@ -115,9 +122,10 @@ export function FullOpenDrawer() {
         aria-label="Main Navigation"
       >
         <NavItem to="/">Home</NavItem>
+        <NavItem to="/currentStatus">Current Status</NavItem>
         <NavItem to="/starkgate">Starkgate</NavItem>
         <NavItem to="/avnu">Avnu</NavItem>
-        <NavItem to="/ekubo">Ekubo</NavItem>
+        {/* <NavItem to="/ekubo">Ekubo</NavItem> */}
         {/* <NavItem to="/nostra">Nostra</NavItem> */}
         <NavItem to="/unruggable">Unruggable</NavItem>
         <Flex
@@ -130,20 +138,26 @@ export function FullOpenDrawer() {
         >
           <Stack minW={'100%'} my={4}>
             <Text>Connect Wallet</Text>
-            <WalletOptions />
+            {address ? (
+              <Button onClick={() => open({ view: 'Account' })}>
+                {address.slice(0, 9)}
+              </Button>
+            ) : (
+              <Button onClick={open}>Connect Wallet</Button>
+            )}
           </Stack>
-          <Stack minW={'100%'} my={4}>
+          <Stack minW={'100%'} my={2}>
             <ActiveChain />
           </Stack>
-          <Stack minW={'100%'} my={4}>
-            <Text>Add Rosettanet Chain to Wallet</Text>
+          <Stack minW={'100%'} my={2}>
+            <Text>Add RosettaNet Chain to Wallet</Text>
             <AddRosettanetChain />
           </Stack>
-          <Stack minW={'100%'} my={4}>
-            <Text>Add Rosettanet ETH to Wallet</Text>
+          <Stack minW={'100%'} my={2}>
+            <Text>Add RosettaNet ETH to Wallet</Text>
             <AddRosettanetETH />
           </Stack>
-          <Stack minW={'100%'} my={4}>
+          <Stack minW={'100%'} my={2}>
             <Text>Chain Switcher</Text>
             {chains.map(chain => (
               <Button

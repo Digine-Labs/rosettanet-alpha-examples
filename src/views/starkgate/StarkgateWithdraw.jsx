@@ -15,7 +15,7 @@ import {
 import { parseEther } from 'ethers';
 import { prepareMulticallCalldata } from '../../utils/multicall';
 import { config } from '../..';
-import { parseGwei } from 'viem';
+import { useAppKitAccount } from '@reown/appkit/react';
 
 const withdrawCalldata = [
   //send ethereum ile iletişim
@@ -43,7 +43,8 @@ const withdrawCalldata = [
 ];
 
 export default function StarkgateWithdraw() {
-  const { address, chainId } = useAccount();
+  const { chainId } = useAccount();
+  const { address } = useAppKitAccount();
   const [amount, setAmount] = useState('');
   const [transactions, setTransactions] = useState([]);
   const toast = useToast();
@@ -61,7 +62,7 @@ export default function StarkgateWithdraw() {
 
     if (chainId !== 1381192787) {
       toast({
-        title: 'Please connect with Rosettanet Chain.',
+        title: 'Please connect with RosettaNet Chain.',
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -87,17 +88,15 @@ export default function StarkgateWithdraw() {
         value: parseEther('0'),
         data: prepareMulticallCalldata(withdrawCalldata),
         gasLimit: 50000,
-        maxFeePerGas: parseGwei('100'),
-        maxPriorityFeePerGas: parseGwei('1'),
         type: 'eip1559',
       });
       console.log('Transaction sent:', response.transaction_hash);
       setTransactions(prevData => [...prevData, response.transaction_hash]);
-    } catch (error) {
-      console.error('Error during contract call:', error);
+    } catch (e) {
+      console.error(e);
       toast({
         title: 'Error',
-        description: error.message,
+        description: JSON.stringify(e.cause.shortMessage),
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -118,7 +117,7 @@ export default function StarkgateWithdraw() {
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
         Wallet needs to be in{' '}
         <Text as="mark" bgColor={'#BCCCDC'} px={2}>
-          Rosettanet
+          RosettaNet
         </Text>
         Chain.
       </Text>

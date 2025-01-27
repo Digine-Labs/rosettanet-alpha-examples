@@ -8,6 +8,7 @@ import Avnu from './views/avnu/avnu';
 import Ekubo from './views/ekubo/ekubo';
 import Nostra from './views/nostra/nostra';
 import Unruggable from './views/unruggable/Unruggable';
+import CurrStatus from './views/currStatus/currStatus';
 
 // Define the routes
 const router = createBrowserRouter([
@@ -31,10 +32,10 @@ const router = createBrowserRouter([
         path: 'avnu',
         element: <Avnu />,
       },
-      {
-        path: 'ekubo',
-        element: <Ekubo />,
-      },
+      // {
+      //   path: 'ekubo',
+      //   element: <Ekubo />,
+      // },
       // {
       //   path: 'nostra',
       //   element: <Nostra />,
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: 'unruggable',
         element: <Unruggable />,
+      },
+      {
+        path: 'currentStatus',
+        element: <CurrStatus />,
       },
     ],
   },

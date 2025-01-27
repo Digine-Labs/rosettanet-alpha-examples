@@ -37,7 +37,7 @@ export default function Avnu() {
 
     if (chainId !== 1381192787) {
       toast({
-        title: 'Please connect with Rosettanet Chain.',
+        title: 'Please connect with RosettaNet Chain.',
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -102,10 +102,10 @@ export default function Avnu() {
       console.log('Transaction sent:', response.transaction_hash);
       setTransactions(prevData => [...prevData, response.transaction_hash]);
     } catch (e) {
-      console.error('Error during contract call:', e);
+      console.error(e);
       toast({
         title: 'Error',
-        description: e.message,
+        description: JSON.stringify(e.cause.shortMessage),
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -127,7 +127,7 @@ export default function Avnu() {
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
         Wallet needs to be in{' '}
         <Text as="mark" bgColor={'#BCCCDC'} px={2}>
-          Rosettanet
+          RosettaNet
         </Text>
         Chain.
       </Text>
@@ -138,13 +138,20 @@ export default function Avnu() {
         bgColor={'red.200'}
         mt={2}
       >
-        This part not works as intented because Avnu's step limit for a single
-        transaction is 1 million. We are exceeding this limit with our calldata
-        for now.
+        This part does not work as intended because Avnu's step limit for a
+        single transaction is 1 million. Currently, calldata exceeds this limit,
+        so we cannot execute this transaction until gas optimization is
+        performed. We need to optimize calldata to make this transaction work.
       </Text>
-      <Button mt={2} onClick={handleClick}>
-        Exchange
-      </Button>
+      {loading ? (
+        <Button mt={2} isLoading loadingText="Exchanging">
+          Exchange
+        </Button>
+      ) : (
+        <Button mt={2} onClick={handleClick}>
+          Exchange
+        </Button>
+      )}
       <Text mt={2} fontSize={'lg'} fontWeight={'bold'}>
         Transactions
       </Text>
