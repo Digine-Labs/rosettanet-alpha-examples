@@ -141,6 +141,7 @@ export function FullOpenDrawer() {
             ) : (
               <Button onClick={open}>Connect Wallet</Button>
             )}
+            {/* <WalletOptions /> */}
           </Stack>
           <Stack minW={'100%'} my={2}>
             <ActiveChain />

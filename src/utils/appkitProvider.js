@@ -4,6 +4,7 @@ import { WagmiProvider } from 'wagmi';
 import { defineChain, sepolia } from '@reown/appkit/networks';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import { walletConnect, coinbaseWallet, injected } from 'wagmi/connectors';
 
 // 0. Setup queryClient
 const queryClient = new QueryClient();
@@ -12,10 +13,16 @@ const queryClient = new QueryClient();
 const projectId = '7e0b8c7d55dd9cad555623bf3c34da1c';
 
 // 2. Create a metadata object - optional
+// const metadata = {
+//   name: 'Rosy',
+//   description: 'Rosettanet Alpha Examples',
+//   url: 'https://rosettanet-alpha-examples.vercel.app/', // origin must match your domain & subdomain
+// };
 const metadata = {
   name: 'Rosy',
-  description: 'Rosettanet Alpha Examples',
+  description: 'AppKit Example',
   url: 'https://rosettanet-alpha-examples.vercel.app/', // origin must match your domain & subdomain
+  icons: ['https://assets.reown.com/reown-profile-pic.png'],
 };
 
 const rosettanetSepolia = defineChain({
@@ -41,6 +48,16 @@ const rosettanetSepolia = defineChain({
   },
 });
 
+const connectors = [];
+connectors.push(walletConnect({ projectId, metadata, showQrModal: false })); // showQrModal must be false
+connectors.push(injected({ shimDisconnect: true }));
+connectors.push(
+  coinbaseWallet({
+    appName: metadata.name,
+    appLogoUrl: metadata.icons[0],
+  })
+);
+
 // 3. Set the networks
 const networks = [sepolia, rosettanetSepolia];
 
@@ -48,6 +65,7 @@ const networks = [sepolia, rosettanetSepolia];
 const wagmiAdapter = new WagmiAdapter({
   networks,
   projectId,
+  connectors,
   ssr: false,
 });
 
