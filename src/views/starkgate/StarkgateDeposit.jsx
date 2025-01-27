@@ -48,8 +48,10 @@ export default function StarkgateDeposit() {
   const [amount, setAmount] = useState('');
   const [transactions, setTransactions] = useState([]);
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   const handleDeposit = async () => {
+    setLoading(true);
     if (!address) {
       toast({
         title: 'Please Connect Your Wallet.',
@@ -57,6 +59,7 @@ export default function StarkgateDeposit() {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
       return;
     }
 
@@ -67,6 +70,7 @@ export default function StarkgateDeposit() {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
       return;
     }
 
@@ -77,6 +81,7 @@ export default function StarkgateDeposit() {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
       return;
     }
 
@@ -105,6 +110,8 @@ export default function StarkgateDeposit() {
         duration: 9000,
         isClosable: true,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -132,7 +139,15 @@ export default function StarkgateDeposit() {
         value={amount}
         onChange={e => setAmount(e.target.value)}
       />
-      <Button onClick={handleDeposit}>Deposit ETH</Button>
+      {loading ? (
+        <Button mt={2} isLoading loadingText="Deposit ETH">
+          Deposit ETH
+        </Button>
+      ) : (
+        <Button mt={2} onClick={handleDeposit}>
+          Deposit ETH
+        </Button>
+      )}
       <Text mt={2} fontSize={'lg'} fontWeight={'bold'}>
         Transactions
       </Text>

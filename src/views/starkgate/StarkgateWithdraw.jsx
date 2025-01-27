@@ -48,8 +48,10 @@ export default function StarkgateWithdraw() {
   const [amount, setAmount] = useState('');
   const [transactions, setTransactions] = useState([]);
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   const handleWithdraw = async () => {
+    setLoading(true);
     if (!address) {
       toast({
         title: 'Please Connect Your Wallet.',
@@ -57,6 +59,7 @@ export default function StarkgateWithdraw() {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
       return;
     }
 
@@ -67,6 +70,7 @@ export default function StarkgateWithdraw() {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
       return;
     }
 
@@ -77,6 +81,7 @@ export default function StarkgateWithdraw() {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
       return;
     }
 
@@ -101,6 +106,8 @@ export default function StarkgateWithdraw() {
         duration: 9000,
         isClosable: true,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -129,7 +136,15 @@ export default function StarkgateWithdraw() {
         value={amount}
         onChange={e => setAmount(e.target.value)}
       />
-      <Button onClick={handleWithdraw}>Withdraw ETH</Button>
+      {loading ? (
+        <Button mt={2} isLoading loadingText="Withdraw ETH">
+          Withdraw ETH
+        </Button>
+      ) : (
+        <Button mt={2} onClick={handleWithdraw}>
+          Withdraw ETH
+        </Button>
+      )}
       <Text mt={2} fontSize={'lg'} fontWeight={'bold'}>
         Transactions
       </Text>

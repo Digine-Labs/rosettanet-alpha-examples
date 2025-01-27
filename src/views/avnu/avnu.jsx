@@ -32,6 +32,7 @@ export default function Avnu() {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
       return;
     }
 
@@ -42,6 +43,7 @@ export default function Avnu() {
         duration: 9000,
         isClosable: true,
       });
+      setLoading(false);
       return;
     }
 
@@ -144,7 +146,7 @@ export default function Avnu() {
         performed. We need to optimize calldata to make this transaction work.
       </Text>
       {loading ? (
-        <Button mt={2} isLoading loadingText="Exchanging">
+        <Button mt={2} isLoading loadingText="Exchange">
           Exchange
         </Button>
       ) : (

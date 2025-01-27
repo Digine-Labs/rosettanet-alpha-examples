@@ -28,10 +28,12 @@ export default function Unruggable() {
   const [tokenSymbol, setTokenSymbol] = useState('');
   const [initialSupply, setInitialSupply] = useState('');
   const [contractSalt, setContractSalt] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleCreate = async e => {
     e.preventDefault();
 
+    setLoading(true);
     if (!address) {
       toast({
         title: 'Please Connect Your Wallet.',
@@ -121,6 +123,8 @@ export default function Unruggable() {
         duration: 9000,
         isClosable: true,
       });
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -179,7 +183,15 @@ export default function Unruggable() {
             required
           />
         </div>
-        <Button type="submit">Create Memecoin</Button>
+        {loading ? (
+          <Button mt={1} isLoading loadingText="Create Memecoin" type="submit">
+            Create Memecoin
+          </Button>
+        ) : (
+          <Button mt={1} type="submit">
+            Create Memecoin
+          </Button>
+        )}
       </form>
       {transactions.map((tx, index) => (
         <Card key={tx} size={'sm'} borderRadius={'lg'} my={5}>
