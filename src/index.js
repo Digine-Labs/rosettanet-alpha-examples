@@ -30,7 +30,7 @@ export const config = createConfig({
       showQrModal: true,
       metadata: {
         name: 'Rosy',
-        description: 'AppKit Example',
+        description: 'Rosettanet Alpha Examples',
         icons: ['https://assets.reown.com/reown-profile-pic.png'],
       },
     }),
