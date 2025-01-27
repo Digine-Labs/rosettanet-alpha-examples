@@ -19,11 +19,7 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import AddRosettanetChain from './addRosettanetChain';
 import AddRosettanetETH from './addRosettanetETH';
 import ActiveChain from './activeChain';
-import {
-  useAppKit,
-  useAppKitAccount,
-  useAppKitNetwork,
-} from '@reown/appkit/react';
+import { useAppKit, useAppKitAccount } from '@reown/appkit/react';
 
 export function WalletOptions() {
   const { connectors, connect } = useConnect();

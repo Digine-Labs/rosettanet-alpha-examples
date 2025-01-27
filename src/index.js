@@ -47,29 +47,25 @@ const root = ReactDOM.createRoot(container);
 
 const queryClient = new QueryClient();
 
-root.render(
-  <StrictMode>
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <ColorModeScript />
-        <App />
-      </QueryClientProvider>
-    </WagmiProvider>
-  </StrictMode>
-);
-
 // root.render(
 //   <StrictMode>
-//     <AppKitProvider>
-//       <ColorModeScript />
-//       <App />
-//     </AppKitProvider>
+//     <WagmiProvider config={config}>
+//       <QueryClientProvider client={queryClient}>
+//         <ColorModeScript />
+//         <App />
+//       </QueryClientProvider>
+//     </WagmiProvider>
 //   </StrictMode>
 // );
 
-// paddle skill select negative sign trial asthma purpose educate sight task finger
-// ----
-// limb goat embody joke area rebel piano hurdle elbow know welcome lift
+root.render(
+  <StrictMode>
+    <AppKitProvider>
+      <ColorModeScript />
+      <App />
+    </AppKitProvider>
+  </StrictMode>
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

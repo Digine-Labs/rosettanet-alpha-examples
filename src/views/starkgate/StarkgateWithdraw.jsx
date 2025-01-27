@@ -87,11 +87,11 @@ export default function StarkgateWithdraw() {
         to: address,
         value: parseEther('0'),
         data: prepareMulticallCalldata(withdrawCalldata),
-        gasLimit: 50000,
+        gasLimit: 90000,
         type: 'eip1559',
       });
-      console.log('Transaction sent:', response.transaction_hash);
-      setTransactions(prevData => [...prevData, response.transaction_hash]);
+      console.log('Transaction sent:', response);
+      setTransactions(prevData => [...prevData, response]);
     } catch (e) {
       console.error(e);
       toast({

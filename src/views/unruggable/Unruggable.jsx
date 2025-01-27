@@ -110,8 +110,8 @@ export default function Unruggable() {
         data: prepareMulticallCalldata(createMemecoinCalldata),
         gasLimit: 21000,
       });
-      console.log('Transaction sent:', response.transaction_hash);
-      setTransactions(prevData => [...prevData, response.transaction_hash]);
+      console.log('Transaction sent:', response);
+      setTransactions(prevData => [...prevData, response]);
     } catch (e) {
       console.error(e);
       toast({

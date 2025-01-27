@@ -99,8 +99,8 @@ export default function Avnu() {
         data: prepareMulticallCalldata(calldata),
         gasLimit: 70000,
       });
-      console.log('Transaction sent:', response.transaction_hash);
-      setTransactions(prevData => [...prevData, response.transaction_hash]);
+      console.log('Transaction sent:', response);
+      setTransactions(prevData => [...prevData, response]);
     } catch (e) {
       console.error(e);
       toast({
