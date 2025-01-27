@@ -14,9 +14,8 @@ const projectId = '7e0b8c7d55dd9cad555623bf3c34da1c';
 // 2. Create a metadata object - optional
 const metadata = {
   name: 'Rosy',
-  description: 'AppKit Example',
-  url: 'https://reown.com/appkit', // origin must match your domain & subdomain
-  icons: ['https://assets.reown.com/reown-profile-pic.png'],
+  description: 'Rosettanet Alpha Examples',
+  url: 'https://rosettanet-alpha-examples.vercel.app/', // origin must match your domain & subdomain
 };
 
 const rosettanetSepolia = defineChain({
@@ -59,7 +58,7 @@ createAppKit({
   projectId,
   metadata,
   features: {
-    analytics: true, // Optional - defaults to your Cloud configuration
+    analytics: false, // Optional - defaults to your Cloud configuration
   },
 });
 
