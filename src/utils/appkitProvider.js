@@ -27,8 +27,8 @@ const metadata = {
 
 const rosettanetSepolia = defineChain({
   id: 1381192787,
-  caipNetworkId: 'eip155:1381192787',
-  chainNamespace: 'eip155',
+  caipNetworkId: '1381192787',
+  chainNamespace: '1381192787',
   name: 'Rosettanet',
   nativeCurrency: {
     decimals: 18,
@@ -48,15 +48,10 @@ const rosettanetSepolia = defineChain({
   },
 });
 
-const connectors = [];
-connectors.push(walletConnect({ projectId, metadata, showQrModal: false })); // showQrModal must be false
-connectors.push(injected({ shimDisconnect: true }));
-connectors.push(
-  coinbaseWallet({
-    appName: metadata.name,
-    appLogoUrl: metadata.icons[0],
-  })
-);
+// const connectors = [];
+// connectors.push(walletConnect({ projectId, metadata, showQrModal: false })); // showQrModal must be false
+// connectors.push(injected({ shimDisconnect: true }));
+// connectors.push(coinbaseWallet());
 
 // 3. Set the networks
 const networks = [sepolia, rosettanetSepolia];
@@ -65,7 +60,7 @@ const networks = [sepolia, rosettanetSepolia];
 const wagmiAdapter = new WagmiAdapter({
   networks,
   projectId,
-  connectors,
+  // connectors,
   ssr: false,
 });
 
