@@ -134,14 +134,13 @@ export function FullOpenDrawer() {
         >
           <Stack minW={'100%'} my={4}>
             <Text>Connect Wallet</Text>
-            {/* {address ? (
+            {address ? (
               <Button onClick={() => open({ view: 'Account' })}>
                 {address.slice(0, 9)}
               </Button>
             ) : (
               <Button onClick={open}>Connect Wallet</Button>
-            )} */}
-            <appkit-button balance="hide" />
+            )}
           </Stack>
           <Stack minW={'100%'} my={2}>
             <ActiveChain />
