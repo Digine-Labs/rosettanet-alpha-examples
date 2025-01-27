@@ -17,7 +17,7 @@ export default function AddRosettanetChain() {
           params: [
             {
               chainId: '0x52535453',
-              blockExplorerUrls: ['https://starkscan.co'],
+              blockExplorerUrls: ['https://voyager.io'],
               chainName: 'RosettaNet',
               nativeCurrency: {
                 decimals: 18,
