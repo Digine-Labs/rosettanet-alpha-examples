@@ -17,7 +17,7 @@ const rosettanetSepolia = {
     default: { http: ['https://alpha-deployment.rosettanet.io/'] },
   },
   blockExplorers: {
-    default: { name: 'Voyager', url: 'https://sepolia.voyager.io' },
+    default: { name: 'Voyager', url: 'https://sepolia.voyager.online' },
   },
 };
 

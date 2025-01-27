@@ -17,7 +17,7 @@ export default function AddRosettanetChain() {
           params: [
             {
               chainId: '0x52535453',
-              blockExplorerUrls: ['https://sepolia.voyager.io'],
+              blockExplorerUrls: ['https://sepolia.voyager.online'],
               chainName: 'RosettaNet',
               nativeCurrency: {
                 decimals: 18,

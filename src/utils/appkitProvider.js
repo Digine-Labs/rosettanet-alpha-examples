@@ -27,8 +27,8 @@ const metadata = {
 
 const rosettanetSepolia = defineChain({
   id: 1381192787,
-  caipNetworkId: '1381192787',
-  chainNamespace: '1381192787',
+  caipNetworkId: 'eip155:1381192787',
+  chainNamespace: 'eip155',
   name: 'Rosettanet',
   nativeCurrency: {
     decimals: 18,
@@ -41,20 +41,15 @@ const rosettanetSepolia = defineChain({
     },
   },
   blockExplorers: {
-    default: { name: 'Voyager', url: 'https://sepolia.voyager.io' },
+    default: { name: 'Voyager', url: 'https://sepolia.voyager.online' },
   },
   contracts: {
     // Add the contracts here
   },
 });
 
-// const connectors = [];
-// connectors.push(walletConnect({ projectId, metadata, showQrModal: false })); // showQrModal must be false
-// connectors.push(injected({ shimDisconnect: true }));
-// connectors.push(coinbaseWallet());
-
 // 3. Set the networks
-const networks = [sepolia, rosettanetSepolia];
+const networks = [rosettanetSepolia, sepolia];
 
 // 4. Create Wagmi Adapter
 const wagmiAdapter = new WagmiAdapter({
