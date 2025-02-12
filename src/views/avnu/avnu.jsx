@@ -49,13 +49,17 @@ export default function Avnu() {
 
     try {
       // sell eth get strk
+      const snAddress = await getStarknetAddress(address);
       const getQuotes = await fetch(
-        'https://sepolia.api.avnu.fi/swap/v1/quotes?sellTokenAddress=0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7&buyTokenAddress=0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d&sellAmount=0x38d7ea4c68000&takerAddress=0x052D8E9778D026588a51595E30B0F45609B4F771EecF0E335CdeFeD1d84a9D89&excludeSources=10KSwap&size=1'
+        `https://sepolia.api.avnu.fi/swap/v1/quotes?sellTokenAddress=0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7&buyTokenAddress=0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d&sellAmount=0x38d7ea4c68000&takerAddress=0x${snAddress.toString(16)}&excludeSources=10KSwap&size=1`
       );
       const getQuotesResponse = await getQuotes.json();
       const quoteId = getQuotesResponse[0].quoteId;
 
-      const snAddress = await getStarknetAddress(address);
+      console.log(getQuotesResponse);
+
+      console.log(snAddress.toString(16));
+      console.log(address)
 
       const postBody = {
         quoteId: quoteId,
@@ -76,6 +80,8 @@ export default function Avnu() {
       );
 
       const buildSwapDataResponse = await buildSwapData.json();
+
+      console.log(buildSwapDataResponse);
 
       const calldata = [
         //send ethereum ile iletişim
@@ -123,7 +129,7 @@ export default function Avnu() {
         Avnu Exchange ETH to STRK
       </Text>
       <Text as="cite" fontSize={'sm'}>
-        This part using Avnu to exchange ETH to STRK. After successfully
+        This part using Avnu to exchange 0,001 ETH to STRK. After successfully
         exchange we can see our increased STRK amount in Wallet.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
@@ -132,17 +138,6 @@ export default function Avnu() {
           RosettaNet
         </Text>
         Chain.
-      </Text>
-      <Text
-        as="cite"
-        fontSize={'sm'}
-        display={'block'}
-        bgColor={'red.200'}
-        mt={2}
-      >
-        This part does not work as intended because calldata too long, so we
-        cannot execute this transaction until gas optimization is performed. We
-        need to optimize calldata to make this transaction work.
       </Text>
       {loading ? (
         <Button mt={2} isLoading loadingText="Exchange">
