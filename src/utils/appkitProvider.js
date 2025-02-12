@@ -37,7 +37,7 @@ const rosettanetSepolia = defineChain({
   },
   rpcUrls: {
     default: {
-      http: ['https://alpha-deployment.rosettanet.io/'],
+      http: ['http://localhost:3000'],
     },
   },
   blockExplorers: {

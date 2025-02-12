@@ -56,11 +56,6 @@ export default function Avnu() {
       const getQuotesResponse = await getQuotes.json();
       const quoteId = getQuotesResponse[0].quoteId;
 
-      console.log(getQuotesResponse);
-
-      console.log(snAddress.toString(16));
-      console.log(address)
-
       const postBody = {
         quoteId: quoteId,
         takerAddress: '0x' + snAddress.toString(16),
@@ -81,7 +76,6 @@ export default function Avnu() {
 
       const buildSwapDataResponse = await buildSwapData.json();
 
-      console.log(buildSwapDataResponse);
 
       const calldata = [
         //send ethereum ile iletişim

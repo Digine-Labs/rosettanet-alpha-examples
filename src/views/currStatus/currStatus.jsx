@@ -42,7 +42,7 @@ export default function CurrStatus() {
           <ListItem>Can add RosettaNet Chain.</ListItem>
           <ListItem>Can add RosettaNet ETH.</ListItem>
           <ListItem>
-            Can't sent Tx, legacy transactions are not supported yet.
+            Can't sent Tx, Wallet gives unsupported chain error.
           </ListItem>
         </UnorderedList>
 
@@ -53,7 +53,7 @@ export default function CurrStatus() {
           <ListItem>Can add RosettaNet Chain.</ListItem>
           <ListItem>Can't add RosettaNet ETH.</ListItem>
           <ListItem>
-            Can't sent Tx, legacy transactions are not supported yet.
+            Can't sent Tx, needs to support legacy tx with multicall. Sending STRK from Address 1 to Address 2 by Coinbase wallet works.
           </ListItem>
         </UnorderedList>
 
