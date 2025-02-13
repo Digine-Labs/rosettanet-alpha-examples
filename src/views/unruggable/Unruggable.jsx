@@ -122,6 +122,9 @@ export default function Unruggable() {
         status: 'error',
         duration: 9000,
         isClosable: true,
+        containerStyle: {
+          height: '80px',
+        },
       });
     } finally {
       setLoading(false);

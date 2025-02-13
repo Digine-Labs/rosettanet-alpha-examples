@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { useAccount } from 'wagmi';
-import { sendTransaction } from '@wagmi/core';
+import React from 'react';
 import {
   Box,
   Button,
@@ -12,23 +10,30 @@ import {
   Link,
   useToast,
 } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useAccount } from 'wagmi';
+import { getStarknetAddress } from '../../utils/starknetUtils';
 import { parseEther } from 'ethers';
 import { prepareMulticallCalldata } from '../../utils/multicall';
+import { sendTransaction } from '@wagmi/core';
 import { config } from '../..';
-import { useAppKitAccount } from '@reown/appkit/react';
 import { cairo } from 'starknet';
 import BigNumber from 'bignumber.js';
 
-export default function StarkgateWithdraw() {
-  const { chainId } = useAccount();
-  const { address } = useAppKitAccount();
+export default function EndurLstStake() {
+  const { address, chainId } = useAccount();
   const [amount, setAmount] = useState('');
   const [transactions, setTransactions] = useState([]);
   const toast = useToast();
   const [loading, setLoading] = useState(false);
 
-  const handleWithdraw = async () => {
+  const handleAddToken = async () => {};
+
+  const handleStake = async () => {
     setLoading(true);
+
+    const snAddress = '0x' + (await getStarknetAddress(address)).toString(16);
+
     if (!address) {
       toast({
         title: 'Please Connect Your Wallet.',
@@ -51,41 +56,27 @@ export default function StarkgateWithdraw() {
       return;
     }
 
-    if (!amount) {
-      toast({
-        title: 'Please enter amount.',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      });
-      setLoading(false);
-      return;
-    }
-
     try {
       const starkAmount = cairo.uint256(parseEther(amount));
-
-      const withdrawCalldata = [
-        //send ethereum ile iletişim
+      const calldata = [
         {
-          to: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+          to: '0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d',
           entrypoint:
-            '0x0083afd3f4caedc6eebf44246fe54e38c95e3179a5ec9ea81740eca5b482d12e',
+            '0x0219209e083275171774dab1df80982e9df2096516f06319c5c6d71ae0a8480c',
           calldata: [
-            '7D33254052409C04510C3652BC5BE5656F1EFF1B131C7C031592E3FA73F1F70',
+            '0x042de5b868da876768213c48019b8d46cd484e66013ae3275f8a4b97b31fc7eb',
             new BigNumber(starkAmount.low).toString(16),
             new BigNumber(starkAmount.high).toString(16),
           ],
         },
         {
-          to: '0x04c5772d1914fe6ce891b64eb35bf3522aeae1315647314aac58b01137607f3f',
+          to: '0x042de5b868da876768213c48019b8d46cd484e66013ae3275f8a4b97b31fc7eb',
           entrypoint:
-            '0x00e5b455a836c7a254df57ed39d023d46b641b331162c6c0b369647056655409',
+            '0x00c73f681176fc7b3f9693986fd7b14581e8d540519e27400e88b8713932be01',
           calldata: [
-            '455448',
-            address,
             new BigNumber(starkAmount.low).toString(16),
             new BigNumber(starkAmount.high).toString(16),
+            snAddress,
           ],
         },
       ];
@@ -95,9 +86,8 @@ export default function StarkgateWithdraw() {
         account: address,
         to: address,
         value: parseEther('0'),
-        data: prepareMulticallCalldata(withdrawCalldata),
-        gasLimit: 90000,
-        type: 'eip1559',
+        data: prepareMulticallCalldata(calldata),
+        gasLimit: 70000,
       });
       console.log('Transaction sent:', response);
       setTransactions(prevData => [...prevData, response]);
@@ -121,35 +111,37 @@ export default function StarkgateWithdraw() {
   return (
     <Box>
       <Text fontSize={'lg'} fontWeight={'bold'}>
-        Starkgate Withdraw from Starknet to ETH
+        Endur LST Staking
       </Text>
       <Text as="cite" fontSize={'sm'}>
-        This part using Starkgate to send ETH from Starknet to Ethereum. After
-        successfully sent we can see our ETH amount in Ethereum Sepolia chain in
+        This part using Endur LST to stake STRK and get xSTRK. After transaction
+        successfully sent we can see our xSTRK amount in Rosettanet chain in
         Wallet.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
         Wallet needs to be in{' '}
         <Text as="mark" bgColor={'#BCCCDC'} px={2}>
-          RosettaNet
-        </Text>
+          Rosettanet
+        </Text>{' '}
         Chain.
       </Text>
-
+      <Button mt={2} onClick={handleAddToken}>
+        Add xSTRK token to wallet
+      </Button>
       <Input
-        placeholder="Enter Amount"
+        placeholder="Enter STRK Amount"
         mt={3}
         mb={3}
         value={amount}
         onChange={e => setAmount(e.target.value)}
       />
       {loading ? (
-        <Button mt={2} isLoading loadingText="Withdraw ETH">
-          Withdraw ETH
+        <Button mt={2} isLoading loadingText="Stake STRK">
+          Stake STRK
         </Button>
       ) : (
-        <Button mt={2} onClick={handleWithdraw}>
-          Withdraw ETH
+        <Button mt={2} onClick={handleStake}>
+          Stake STRK
         </Button>
       )}
       <Text mt={2} fontSize={'lg'} fontWeight={'bold'}>

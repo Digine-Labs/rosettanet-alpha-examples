@@ -9,6 +9,8 @@ import Ekubo from './views/ekubo/ekubo';
 import Nostra from './views/nostra/nostra';
 import Unruggable from './views/unruggable/Unruggable';
 import CurrStatus from './views/currStatus/currStatus';
+import EndurLst from './views/endurLst/endurLst';
+import StrkFarm from './views/strkFarm/strkFarm';
 
 // Define the routes
 const router = createBrowserRouter([
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
         path: 'unruggable',
         element: <Unruggable />,
       },
+      {
+        path: 'endurLst',
+        element: <EndurLst />,
+      },
+      // {
+      //   path: 'strkFarm',
+      //   element: <StrkFarm />,
+      // },
       {
         path: 'currentStatus',
         element: <CurrStatus />,

@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { useAccount } from 'wagmi';
-import { sendTransaction } from '@wagmi/core';
+import React from 'react';
 import {
   Box,
   Button,
@@ -12,23 +10,28 @@ import {
   Link,
   useToast,
 } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useAccount } from 'wagmi';
+import { getStarknetAddress } from '../../utils/starknetUtils';
 import { parseEther } from 'ethers';
 import { prepareMulticallCalldata } from '../../utils/multicall';
+import { sendTransaction } from '@wagmi/core';
 import { config } from '../..';
-import { useAppKitAccount } from '@reown/appkit/react';
 import { cairo } from 'starknet';
 import BigNumber from 'bignumber.js';
 
-export default function StarkgateWithdraw() {
-  const { chainId } = useAccount();
-  const { address } = useAppKitAccount();
+export default function EndurLstUnstake() {
+  const { address, chainId } = useAccount();
   const [amount, setAmount] = useState('');
   const [transactions, setTransactions] = useState([]);
   const toast = useToast();
   const [loading, setLoading] = useState(false);
 
-  const handleWithdraw = async () => {
+  const handleUnstake = async () => {
     setLoading(true);
+
+    const snAddress = '0x' + (await getStarknetAddress(address)).toString(16);
+
     if (!address) {
       toast({
         title: 'Please Connect Your Wallet.',
@@ -51,41 +54,18 @@ export default function StarkgateWithdraw() {
       return;
     }
 
-    if (!amount) {
-      toast({
-        title: 'Please enter amount.',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      });
-      setLoading(false);
-      return;
-    }
-
     try {
       const starkAmount = cairo.uint256(parseEther(amount));
-
-      const withdrawCalldata = [
-        //send ethereum ile iletişim
+      const calldata = [
         {
-          to: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+          to: '0x042de5b868da876768213c48019b8d46cd484e66013ae3275f8a4b97b31fc7eb',
           entrypoint:
-            '0x0083afd3f4caedc6eebf44246fe54e38c95e3179a5ec9ea81740eca5b482d12e',
+            '0x15511cc3694f64379908437d6d64458dc76d02482052bfb8a5b33a72c054c77',
           calldata: [
-            '7D33254052409C04510C3652BC5BE5656F1EFF1B131C7C031592E3FA73F1F70',
             new BigNumber(starkAmount.low).toString(16),
             new BigNumber(starkAmount.high).toString(16),
-          ],
-        },
-        {
-          to: '0x04c5772d1914fe6ce891b64eb35bf3522aeae1315647314aac58b01137607f3f',
-          entrypoint:
-            '0x00e5b455a836c7a254df57ed39d023d46b641b331162c6c0b369647056655409',
-          calldata: [
-            '455448',
-            address,
-            new BigNumber(starkAmount.low).toString(16),
-            new BigNumber(starkAmount.high).toString(16),
+            snAddress,
+            snAddress,
           ],
         },
       ];
@@ -95,9 +75,8 @@ export default function StarkgateWithdraw() {
         account: address,
         to: address,
         value: parseEther('0'),
-        data: prepareMulticallCalldata(withdrawCalldata),
-        gasLimit: 90000,
-        type: 'eip1559',
+        data: prepareMulticallCalldata(calldata),
+        gasLimit: 70000,
       });
       console.log('Transaction sent:', response);
       setTransactions(prevData => [...prevData, response]);
@@ -121,35 +100,35 @@ export default function StarkgateWithdraw() {
   return (
     <Box>
       <Text fontSize={'lg'} fontWeight={'bold'}>
-        Starkgate Withdraw from Starknet to ETH
+        Endur LST Unstaking
       </Text>
       <Text as="cite" fontSize={'sm'}>
-        This part using Starkgate to send ETH from Starknet to Ethereum. After
-        successfully sent we can see our ETH amount in Ethereum Sepolia chain in
-        Wallet.
+        This part using Endur LST to unstake xSTRK and get STRK. After
+        transaction successfully sent we can see our STRK amount in Rosettanet
+        chain in Wallet. Unstaking STRK can take a long time ~21 days. You can
+        see how long it will take below.
       </Text>
       <Text as="cite" fontSize={'sm'} display={'block'} mt={2}>
         Wallet needs to be in{' '}
         <Text as="mark" bgColor={'#BCCCDC'} px={2}>
-          RosettaNet
-        </Text>
+          Rosettanet
+        </Text>{' '}
         Chain.
       </Text>
-
       <Input
-        placeholder="Enter Amount"
+        placeholder="Enter xSTRK Amount"
         mt={3}
         mb={3}
         value={amount}
         onChange={e => setAmount(e.target.value)}
       />
       {loading ? (
-        <Button mt={2} isLoading loadingText="Withdraw ETH">
-          Withdraw ETH
+        <Button mt={2} isLoading loadingText="Unstake STRK">
+          Unstake STRK
         </Button>
       ) : (
-        <Button mt={2} onClick={handleWithdraw}>
-          Withdraw ETH
+        <Button mt={2} onClick={handleUnstake}>
+          Unstake STRK
         </Button>
       )}
       <Text mt={2} fontSize={'lg'} fontWeight={'bold'}>

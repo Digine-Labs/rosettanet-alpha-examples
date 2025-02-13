@@ -105,10 +105,13 @@ export default function StarkgateDeposit() {
       console.error(e);
       toast({
         title: 'Error',
-        description: JSON.stringify(e.cause.shortMessage),
+        description: JSON.stringify(e),
         status: 'error',
         duration: 9000,
         isClosable: true,
+        containerStyle: {
+          height: '80px',
+        },
       });
     } finally {
       setLoading(false);
