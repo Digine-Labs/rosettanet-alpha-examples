@@ -19,6 +19,7 @@ import { getStarknetAddress } from '../../utils/starknetUtils';
 import { cairo } from 'starknet';
 import { asciiToHex } from '../../utils/asciiToHex';
 import BigNumber from 'bignumber.js';
+import { reownConfig } from '../../utils/appkitProvider';
 
 export default function Unruggable() {
   const { address, chainId } = useAccount();
@@ -104,7 +105,7 @@ export default function Unruggable() {
       },
     ];
     try {
-      const response = await sendTransaction(config, {
+      const response = await sendTransaction(reownConfig, {
         chainId: 1381192787,
         account: address,
         to: address,

@@ -19,6 +19,7 @@ import { sendTransaction } from '@wagmi/core';
 import { config } from '../..';
 import { cairo } from 'starknet';
 import BigNumber from 'bignumber.js';
+import { reownConfig } from '../../utils/appkitProvider';
 
 export default function EndurLstUnstake() {
   const { address, chainId } = useAccount();
@@ -70,7 +71,7 @@ export default function EndurLstUnstake() {
         },
       ];
 
-      const response = await sendTransaction(config, {
+      const response = await sendTransaction(reownConfig, {
         chainId: 1381192787,
         account: address,
         to: address,

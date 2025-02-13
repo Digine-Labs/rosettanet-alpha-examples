@@ -8,6 +8,7 @@ import { sepolia, mainnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppKitProvider } from './utils/appkitProvider';
 import { walletConnect } from 'wagmi/connectors';
+import ErrorBoundary from './components/errorBoundry';
 
 const rosettanetSepolia = {
   id: 1381192787,
@@ -58,13 +59,30 @@ const queryClient = new QueryClient();
 //   </StrictMode>
 // );
 
+window.onerror = function (message, source, lineno, colno, error) {
+  if (message.includes('Cannot set property ethereum')) {
+    return true; // Prevents the error from appearing in the console
+  }
+};
+
+window.onunhandledrejection = function (event) {
+  if (
+    event.reason &&
+    event.reason.message.includes('Cannot set property ethereum')
+  ) {
+    event.preventDefault(); // Prevents the error from propagating
+  }
+};
+
 root.render(
-  <StrictMode>
-    <AppKitProvider>
-      <ColorModeScript />
-      <App />
-    </AppKitProvider>
-  </StrictMode>
+  <ErrorBoundary>
+    <StrictMode>
+      <AppKitProvider>
+        <ColorModeScript />
+        <App />
+      </AppKitProvider>
+    </StrictMode>
+  </ErrorBoundary>
 );
 
 // If you want your app to work offline and load faster, you can change

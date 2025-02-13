@@ -19,6 +19,8 @@ import { sendTransaction } from '@wagmi/core';
 import { config } from '../..';
 import { cairo } from 'starknet';
 import BigNumber from 'bignumber.js';
+import { reownConfig } from '../../utils/appkitProvider';
+import AddRosettanetXSTRK from '../../components/addRosettanetxSTRK';
 
 export default function EndurLstStake() {
   const { address, chainId } = useAccount();
@@ -81,7 +83,7 @@ export default function EndurLstStake() {
         },
       ];
 
-      const response = await sendTransaction(config, {
+      const response = await sendTransaction(reownConfig, {
         chainId: 1381192787,
         account: address,
         to: address,
@@ -125,9 +127,7 @@ export default function EndurLstStake() {
         </Text>{' '}
         Chain.
       </Text>
-      <Button mt={2} onClick={handleAddToken}>
-        Add xSTRK token to wallet
-      </Button>
+      <AddRosettanetXSTRK />
       <Input
         placeholder="Enter STRK Amount"
         mt={3}

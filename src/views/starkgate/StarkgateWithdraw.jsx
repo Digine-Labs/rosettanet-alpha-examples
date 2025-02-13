@@ -18,6 +18,7 @@ import { config } from '../..';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { cairo } from 'starknet';
 import BigNumber from 'bignumber.js';
+import { reownConfig } from '../../utils/appkitProvider';
 
 export default function StarkgateWithdraw() {
   const { chainId } = useAccount();
@@ -90,7 +91,7 @@ export default function StarkgateWithdraw() {
         },
       ];
 
-      const response = await sendTransaction(config, {
+      const response = await sendTransaction(reownConfig, {
         chainId: 1381192787,
         account: address,
         to: address,

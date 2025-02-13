@@ -15,6 +15,7 @@ import { sendTransaction } from '@wagmi/core';
 import { prepareMulticallCalldata } from '../../utils/multicall';
 import { config } from '../..';
 import { parseEther } from 'ethers';
+import { reownConfig } from '../../utils/appkitProvider';
 
 export default function Avnu() {
   const { address, chainId } = useAccount();
@@ -94,7 +95,10 @@ export default function Avnu() {
         },
       ];
 
-      const response = await sendTransaction(config, {
+      console.log(config);
+      console.log(reownConfig);
+
+      const response = await sendTransaction(reownConfig, {
         chainId: 1381192787,
         account: address,
         to: address,

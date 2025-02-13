@@ -59,6 +59,8 @@ const wagmiAdapter = new WagmiAdapter({
   ssr: false,
 });
 
+export const reownConfig = wagmiAdapter.wagmiConfig;
+
 // 5. Create modal
 createAppKit({
   adapters: [wagmiAdapter],
