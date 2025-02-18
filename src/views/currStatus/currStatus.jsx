@@ -53,7 +53,8 @@ export default function CurrStatus() {
           <ListItem>Can add RosettaNet Chain.</ListItem>
           <ListItem>Can't add RosettaNet ETH.</ListItem>
           <ListItem>
-            Can't sent Tx, needs to support legacy tx with multicall. Sending STRK from Address 1 to Address 2 by Coinbase wallet works.
+            Can't sent Tx, needs to support legacy tx with multicall. Sending
+            STRK from Address 1 to Address 2 by Coinbase wallet works.
           </ListItem>
         </UnorderedList>
 
@@ -81,12 +82,7 @@ export default function CurrStatus() {
         <Text fontWeight="bold" mb={2}>
           Avnu
         </Text>
-        <Text mb={4}>
-          Does not work as intended because Avnu's step limit for a single
-          transaction is 1 million. Currently, calldata exceeds this limit, so
-          we cannot execute this transaction until gas optimization is
-          performed. We need to optimize calldata to make this transaction work.
-        </Text>
+        <Text mb={4}>Works perfectly fine with RosettaNet.</Text>
 
         <Text fontWeight="bold" mb={2}>
           Unruggable
@@ -97,12 +93,9 @@ export default function CurrStatus() {
         </Text>
 
         <Text fontWeight="bold" mb={2}>
-          Ekubo
+          Endur LST xSTRK
         </Text>
-        <Text mb={4}>
-          Not available yet because it was too complicated to have in a week.
-          Swapping in Ekubo will be added in short time.
-        </Text>
+        <Text mb={4}>Works perfectly fine with RosettaNet.</Text>
       </Box>
     </Container>
   );
